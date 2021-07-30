@@ -13,7 +13,22 @@ var checkPopup = setInterval(() => {
     const dismissButton = document.getElementById("dismiss-button");
     if (dismissButton) {
         dismissButton.click();
-        document.getElementById("movie_player").click();    // resume player
+
+        // Up quality to 1080p
+        document.getElementsByClassName("ytp-settings-button")[0].click();
+        for (const menuItem of document.getElementsByClassName("ytp-panel-menu")[0].getElementsByClassName("ytp-menuitem")) {
+            if (menuItem.getElementsByClassName("ytp-menuitem-label")[0].innerHTML === "Quality") {
+                menuItem.click();
+                for (const qualityItem of document.getElementsByClassName("ytp-quality-menu")[0].getElementsByClassName("ytp-menuitem")) {
+                    if (qualityItem.getElementsByTagName("span")[0].innerHTML.startsWith("1080p")) {
+                        qualityItem.click();
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        
         clearInterval(checkPopup);
     }
 }, 200);
