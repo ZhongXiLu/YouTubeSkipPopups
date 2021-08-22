@@ -35,6 +35,9 @@ var checkPopup = setInterval(() => {
                 break;
             }
         }
+
+        // Also disable autoplay
+        document.getElementsByClassName("ytp-autonav-toggle-button")[0].click();
         
         clearInterval(checkPopup);
     }
