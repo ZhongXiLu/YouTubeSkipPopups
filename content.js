@@ -1,4 +1,5 @@
 
+
 // Check consent form
 const forms = document.getElementsByTagName("form");
 if (forms.length > 0) {
@@ -10,7 +11,7 @@ if (forms.length > 0) {
 
 // Wait until login popup shows up (there is usually a small delay)
 var checkPopup = setInterval(() => {
-    const dismissButton = document.getElementById("dismiss-button");
+    const dismissButton = Array.from(document.getElementsByTagName("yt-formatted-string")).find(elem => elem.innerHTML === "I agree");
     if (dismissButton) {
         dismissButton.click();
 
@@ -20,10 +21,16 @@ var checkPopup = setInterval(() => {
             if (menuItem.getElementsByClassName("ytp-menuitem-label")[0].innerHTML === "Quality") {
                 menuItem.click();
                 for (const qualityItem of document.getElementsByClassName("ytp-quality-menu")[0].getElementsByClassName("ytp-menuitem")) {
-                    if (qualityItem.getElementsByTagName("span")[0].innerHTML.startsWith("1080p")) {
-                        qualityItem.click();
-                        break;
+                    const quality = qualityItem.getElementsByTagName("span")[0].innerHTML;
+
+                    // Skip certain high res qualities
+                    if (quality.startsWith("1440p") || quality.startsWith("2160p") || quality.startsWith("4320p")) {
+                        continue;
                     }
+
+                    // Pick the first option (i.e. the highest)
+                    qualityItem.click();
+                    break;
                 }
                 break;
             }
