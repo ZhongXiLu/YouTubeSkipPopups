@@ -11,7 +11,7 @@ if (forms.length > 0) {
 
 // Wait until login popup shows up (there is usually a small delay)
 var checkPopup = setInterval(() => {
-    const dismissButton = Array.from(document.getElementsByTagName("yt-formatted-string")).find(elem => elem.innerHTML === "I agree");
+    const dismissButton = Array.from(document.getElementsByTagName("yt-formatted-string")).find(elem => elem.innerHTML === "Accept all");
     if (dismissButton) {
         dismissButton.click();
 
