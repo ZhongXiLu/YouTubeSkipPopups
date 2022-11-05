@@ -11,9 +11,9 @@ if (forms.length > 0) {
 
 // Wait until login popup shows up (there is usually a small delay)
 var checkPopup = setInterval(() => {
-    const dismissButton = Array.from(document.getElementsByTagName("yt-formatted-string")).find(elem => elem.innerHTML === "Accept all");
+
+    const dismissButton = document.querySelectorAll('[aria-label="Accept the use of cookies and other data for the purposes described"]')[0];
     if (dismissButton) {
-        dismissButton.click();
 
         // Up quality to 1080p
         document.getElementsByClassName("ytp-settings-button")[0].click();
@@ -29,6 +29,7 @@ var checkPopup = setInterval(() => {
                     }
 
                     // Pick the first option (i.e. the highest)
+                    console.log("Setting quality to " + quality);
                     qualityItem.click();
                     break;
                 }
@@ -38,6 +39,9 @@ var checkPopup = setInterval(() => {
 
         // Also disable autoplay
         document.getElementsByClassName("ytp-autonav-toggle-button")[0].click();
+
+        // Accept cookies
+        setTimeout(() => dismissButton.click(), 800);
         
         clearInterval(checkPopup);
     }
